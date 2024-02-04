@@ -4,8 +4,18 @@
 
 const buttonClick = require("../button");
 
-beforeAll(() => {
-    document.body.innerHTML = "<p id='par'></p>";
+// for only a specific part of html 
+// beforeAll(() => {
+//     document.body.innerHTML = "<p id='par'></p>";
+// });
+
+// for all html file
+beforeEach(() => {
+    let fs = require("fs");
+    let fileContents = fs.readFileSync("index.html", "utf-8");
+    document.open()
+    document.write(fileContents);
+    document.close();
 });
 
 describe("DOM tests", () => {
@@ -14,4 +24,7 @@ describe("DOM tests", () => {
         expect(document.getElementById("par")
             .innerHTML).toEqual("You Clicked");
     });
+    test("h1 should exist", () => {
+        expect(document.getElementsByTagName("h1").length).toBe(1);
+    })
 });
